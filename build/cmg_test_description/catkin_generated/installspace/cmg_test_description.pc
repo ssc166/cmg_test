@@ -1,8 +1,0 @@
-prefix=/home/ssc/cmg_test/install
-
-Name: cmg_test_description
-Description: Description of cmg_test_description
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
