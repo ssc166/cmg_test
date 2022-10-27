@@ -1,0 +1,8 @@
+prefix=/home/ssc/cmg_test/install
+
+Name: cmg_test_gazebo
+Description: Description of cmg_test_gazebo
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

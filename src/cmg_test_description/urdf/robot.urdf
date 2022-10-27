@@ -1,0 +1,319 @@
+<?xml version="1.0"?>
+
+<robot name="CMG_test">
+
+        <link name="world">	
+
+		</link>
+
+        <joint name="cmg_joint" type="continuous">
+		    <origin xyz="0 0 0.05" rpy="0.0 0.0 0.0" /> 
+            <axis xyz="1 0 0" />
+		    <parent link="world"/>
+		    <child link="cmg_link"/>
+            <joint_properties damping="0.0" friction="0"/>
+		</joint> 
+        <!-- HEIGHT=1.077, origin 1.022142 -->
+        <!-- HEIGHT=0.9, origin 0.845-->
+        <!-- HEIGHT=0.82, origin 0.765-->
+
+        <link name="cmg_link">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0.0 3.14"/> <!--xyz="0.0 0.0 0.0" rpy="0 0.0 0" -->
+                <geometry>
+                    <mesh filename="package://cmg_test_description/meshes/CMG_test.stl" scale="0.001 0.001 0.001"/>         
+                </geometry>
+                <material name=""/>
+            </visual>
+
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0.0 3.14"/>
+                <geometry>
+                    <mesh filename="package://cmg_test_description/meshes/CMG_test.stl" scale="0.001 0.001 0.001"/>
+                </geometry>
+            </collision>
+
+            <inertial>
+                <mass value="5.775" /> <!--3.037-->
+                <origin xyz="0 0 0.403277" rpy="0 0.0 3.14"/>
+                <inertia ixx="0.117069857" ixy="0.000000131"  ixz="-0.000440267"  iyy="0.105441223"  iyz="0.000009596"  izz="0.086184503" />
+            </inertial>
+        </link>
+
+<!-- ######################################################################################### -->
+
+        <joint name="Left_gimbal_joint" type="revolute">
+            <!-- <origin xyz="-0.000001 0.08 -0.0015" rpy="0 0 1.57"/> -->
+            <origin xyz="0 0.08 0.4542" rpy="0 0 0"/>
+            <axis xyz="0 0 1" />
+            <parent link="cmg_link"/>
+            <child link="Left_gimbal"/>            
+            <limit effort="100" velocity="100" upper="1.57" lower="-1.57"/>
+            <!-- <calibration falling="1.0"/> -->
+            <joint_properties damping="0.0" friction="0.0"/>
+            <mimic joint="Right_gimbal_joint" multiplier="-1.0"/>
+
+        </joint>
+
+<!-- ######################################################################################### -->
+
+        <link name="Left_gimbal">
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0.0 0"/> 
+                <geometry>
+                    <mesh filename="package://cmg_test_description/meshes/left_gimbal_link.STL" scale="0.001 0.001 0.001"/>         
+                </geometry>
+                <material name=""/>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0.0 0.0"/>
+                <geometry>
+                    <mesh filename="package://cmg_test_description/meshes/left_gimbal_link.STL" scale="0.001 0.001 0.001"/>        
+                </geometry>
+            </collision>
+            <inertial>
+                <mass value="0.92" /><!-- 1.095 -->
+                <origin xyz="0 0 0" />
+                <inertia ixx="0.004692" ixy="0" ixz="0" iyy="0.004132" iyz="0" izz="0.001112"/>
+            </inertial>
+        </link>
+
+<!-- ######################################################################################### -->
+
+         <joint name="Left_flywheel_joint" type="continuous">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <axis xyz="0 1 0" />
+            <parent link="Left_gimbal"/>
+            <child link="Left_flywheel"/>
+
+        </joint>
+
+<!-- ######################################################################################### -->
+
+        <link name="Left_flywheel">
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://cmg_test_description/meshes/left_flywheel_link.STL" scale="0.001 0.001 0.001" />
+                </geometry>
+                <material name=""/>
+            </visual>
+
+            <collision>
+                <geometry>
+                    <mesh filename="package://cmg_test_description/meshes/left_flywheel_link.STL" scale="0.001 0.001 0.001" />
+                </geometry>
+            </collision>
+
+            <inertial>
+                <mass value="3.73" />
+                <origin xyz="0 0 0" />
+                <inertia ixx="0.006235" ixy="0" ixz="0" iyy="0.0119107" iyz="0" izz="0.006235"/>
+            </inertial>
+        </link>
+
+<!-- ######################################################################################### -->
+
+        <joint name="Right_gimbal_joint" type="revolute">            
+            <origin xyz="0 -0.08 0.4542" rpy="0 0 0"/>
+            <axis xyz="0 0 1" />
+            <parent link="cmg_link"/>
+            <child link="Right_gimbal"/>            
+            <limit effort="100" velocity="100" upper="1.57" lower="-1.57"/>
+            <joint_properties damping="0.0" friction="0"/>
+        </joint>
+
+<!-- ######################################################################################### -->
+
+        <link name="Right_gimbal">
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0.0 3.14"/> 
+                <geometry>
+                    <mesh filename="package://cmg_test_description/meshes/right_gimbal_link.STL" scale="0.001 0.001 0.001"/>         
+                </geometry>
+                <material name=""/>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0.0 3.14"/>
+                <geometry>
+                    <mesh filename="package://cmg_test_description/meshes/right_gimbal_link.STL" scale="0.001 0.001 0.001"/>        
+                </geometry>
+            </collision>
+            <inertial>
+                <mass value="0.92" /><!-- 1.095 -->
+                <origin xyz="0 0 0" />
+                <inertia ixx="0.004692" ixy="0" ixz="0" iyy="0.004132" iyz="0" izz="0.001112"/>
+            </inertial>
+        </link>
+
+<!-- ######################################################################################### -->
+
+        <joint name="Right_flywheel_joint" type="continuous">
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <axis xyz="0 1 0" />
+            <parent link="Right_gimbal"/>
+            <child link="Right_flywheel"/>
+  
+        </joint>
+
+<!-- ######################################################################################### -->
+
+        <link name="Right_flywheel">
+            <visual>
+                <origin xyz="0 0 0" rpy="3.14 0 0" />
+                <geometry>
+                    <mesh filename="package://cmg_test_description/meshes/right_flywheel_link.STL" scale="0.001 0.001 0.001" />
+                </geometry>
+                <material name=""/>
+            </visual>
+
+            <collision>
+                <origin xyz="0 0 0" rpy="3.14 0 0" />
+                <geometry>
+                    <mesh filename="package://cmg_test_description/meshes/right_flywheel_link.STL" scale="0.001 0.001 0.001" />
+                </geometry>
+            </collision>
+
+            <inertial>
+                <mass value="3.73" />
+                <origin xyz="0 0 0" />
+                <inertia ixx="0.006235" ixy="0" ixz="0" iyy="0.0119107" iyz="0" izz="0.006235"/>
+            </inertial>
+        </link>
+
+<!-- ######################################################################################### -->
+
+
+        <gazebo reference="cmg_link">
+            <mu1>1.0</mu1>
+            <mu2>1.0</mu2> 
+            <kp>1e+13</kp>
+            <kd>1.0</kd>
+            <maxVel>0.001</maxVel>
+            <minDepth>0.00000000001</minDepth>
+            <gravity>1</gravity>
+            <material>Gazebo/GreyTransparent</material>
+            <!-- <selfCollide>true</selfCollide> -->
+        </gazebo>
+
+        <gazebo reference="Left_gimbal">
+            <mu1>1.0</mu1>
+            <mu2>1.0</mu2> 
+            <kp>1e+13</kp>
+            <kd>1.0</kd>
+            <maxVel>0.001</maxVel>
+            <minDepth>0.00000000001</minDepth>
+            <gravity>1</gravity>
+            <material>Gazebo/Grey</material>
+            <selfCollide>true</selfCollide>
+        </gazebo>
+
+        <gazebo reference="Left_flywheel">
+            <mu1>1.0</mu1>
+            <mu2>1.0</mu2> 
+            <kp>1e+13</kp>
+            <kd>1.0</kd>
+            <maxVel>0.001</maxVel>
+            <minDepth>0.00000000001</minDepth>
+            <gravity>1</gravity>
+            <material>Gazebo/White</material>
+        </gazebo>
+
+
+        <gazebo reference="Right_gimbal">
+            <mu1>1.0</mu1>
+            <mu2>1.0</mu2> 
+            <kp>1e+13</kp>
+            <kd>1.0</kd>
+            <maxVel>0.001</maxVel>
+            <minDepth>0.00000000001</minDepth>
+            <gravity>1</gravity>
+            <material>Gazebo/Grey</material>
+            <selfCollide>true</selfCollide>
+        </gazebo>
+
+        <gazebo reference="Right_flywheel">
+            <mu1>1.0</mu1>
+            <mu2>1.0</mu2> 
+            <kp>1e+13</kp>
+            <kd>1.0</kd>
+            <maxVel>0.001</maxVel>
+            <minDepth>0.00000000001</minDepth>
+            <gravity>1</gravity>
+            <material>Gazebo/White</material>
+        </gazebo>
+
+<!-- ######################################################################################### -->
+
+        <gazebo>
+            <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+                <controlPeriod>0.001</controlPeriod>
+                <robotNamespace>/CMG_test</robotNamespace>
+                <!-- <jointName> Right_gimbal_joint, Left_gimbal_joint, Left_flywheel_joint, Right_flywheel_joint, hip_roll_joint, hip_pitch_joint, knee_joint, ankle_pitch_joint, ankle_roll_joint, wheel_joint </jointName> -->
+                <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+                <legacyModeNS>true</legacyModeNS>
+            </plugin>
+        </gazebo>
+
+        <!-- <gazebo>
+            <plugin name="joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
+                <jointName> Right_gimbal_joint, Left_gimbal_joint, Left_flywheel_joint, Right_flywheel_joint, ankle_pitch_joint, wheel_joint </jointName>
+            </plugin>
+        </gazebo> -->
+<!-- , hip_pitch_joint, knee_joint -->
+        <gazebo>
+            <plugin name="mimic_control" filename="libroboticsgroup_upatras_gazebo_mimic_joint_plugin.so">
+                <joint>Right_gimbal_joint</joint>
+                <mimicJoint>Left_gimbal_joint</mimicJoint>
+                <multiplier>-1.0</multiplier>
+                <!-- <hasPID>/gazebo_ros_control/pid_gains/Left_gimbal_joint</hasPID> -->
+                <!-- /gazebo_ros_control/pid_gains/Left_gimbal_joint -->
+            </plugin>
+        </gazebo>
+
+        <transmission name="Left_flywheel_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="Left_flywheel_joint" >
+                <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="Left_flywheel_motor">
+                <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <!-- <transmission name="Left_gimbal_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="Left_gimbal_joint" >
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="Left_gimbal_motor">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission> -->
+
+
+        <transmission name="Right_flywheel_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="Right_flywheel_joint" >
+                <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="Right_flywheel_motor">
+                <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+        <transmission name="Right_gimbal_trans">
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="Right_gimbal_joint" >
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="Right_gimbal_motor">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+
+</robot>

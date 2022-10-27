@@ -1,0 +1,2 @@
+cmg_test_description:cmg_test_gazebo:roboticsgroup_upatras_gazebo_plugins-master
+-DCATKIN_DEVEL_PREFIX=/home/ssc/cmg_test/devel -DCMAKE_INSTALL_PREFIX=/home/ssc/cmg_test/install -G Unix Makefiles
